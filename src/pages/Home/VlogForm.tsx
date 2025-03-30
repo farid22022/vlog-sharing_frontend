@@ -97,11 +97,13 @@ export default function BlogForm() {
         summary: data.summary,
         category: data.category,
         subCategory: data.subCategories[0] || '',
-        tags: data.tags,
+        tags: Array.isArray(data.tags) ? data.tags : [data.tags], // Ensure tags is an array
         publicationDate: data.publicationDate,
         images: imageUrls,
         author: data.authorName
       };
+
+      
 
       const response = await axios.post('http://localhost:5000/api/v1/blogs', blogData);
       
@@ -150,7 +152,7 @@ export default function BlogForm() {
   }, [previewData]);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className="max-w-6xl mx-auto p-6 bg-blue-400 rounded-lg shadow-md">
       <h1 className="text-3xl font-bold mb-6 text-center">Create Blog Post</h1>
       
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
